@@ -17,12 +17,17 @@ endif()
 # Project options
 # 
 
+set(DEFAULT_CXX_VISIBILITY_PRESET "hidden")
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "AppleClang") # Set visiblity to default for AppleClang due to template instantiation issues (see Github issue #56)
+    set(DEFAULT_CXX_VISIBILITY_PRESET "default")
+endif()
+
 set(DEFAULT_PROJECT_OPTIONS
     DEBUG_POSTFIX             "d"
     CXX_STANDARD              11 # Not available before CMake 3.1; see below for manual command line argument addition
     LINKER_LANGUAGE           "CXX"
     POSITION_INDEPENDENT_CODE ON
-    CXX_VISIBILITY_PRESET     "hidden"
+    CXX_VISIBILITY_PRESET     ${DEFAULT_CXX_VISIBILITY_PRESET}
 )
 
 
